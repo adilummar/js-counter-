@@ -35,7 +35,6 @@ const minutes = futureDate.getMinutes();
 const date = futureDate.getDate();
 var weekday = futureDate.getDay();
 weekday = weekdays[weekday];
-console.log(weekday);
 
 giveaway.textContent = `giveaway ends on ${weekday}, ${months[month]} ${year} ${hours}:${minutes}`;
 
@@ -58,15 +57,26 @@ function getRemainingtime() {
   hours = Math.floor(hours / oneHour);
   var mins = Math.floor((cInms % oneHour) / oneMinute);
   var sec = Math.floor((cInms % oneMinute) / oneSec);
-  console.log(days);
-  console.log(hours);
-  console.log(mins);
-  console.log(sec);
 
-// grabbing events 
+// grabbing datas
+const value = [days,hours,mins,sec]
+
+// adding zero for < 10 
+function format(item){
+  if(item < 10){
+    return item = `0${item}`
+  }
+  return item 
+}
+
+items.forEach((item,index)=>{
+  item.innerHTML = format(value[index])
+})
 
 }
 
+setInterval(()=>{
 
+  getRemainingtime();
+},1000)
 
-getRemainingtime();
