@@ -58,25 +58,29 @@ function getRemainingtime() {
   var mins = Math.floor((cInms % oneHour) / oneMinute);
   var sec = Math.floor((cInms % oneMinute) / oneSec);
 
-// grabbing datas
-const value = [days,hours,mins,sec]
+  // grabbing datas
+  const value = [days, hours, mins, sec];
 
-// adding zero for < 10 
-function format(item){
-  if(item < 10){
-    return item = `0${item}`
+  // adding zero for < 10
+  function format(item) {
+    if (item < 10) {
+      return (item = `0${item}`);
+    }
+    return item;
   }
-  return item 
+
+  items.forEach((item, index) => {
+    item.innerHTML = format(value[index]);
+  });
+
+  if(cInms < 0 ){
+    clearInterval(countDown)
+    deadline.innerHTML = '<h4 class="expired"> sorry this giveaway has expired <h4/>'
+  }
 }
 
-items.forEach((item,index)=>{
-  item.innerHTML = format(value[index])
-})
-
-}
-
-setInterval(()=>{
-
+var countDown = setInterval(() => {
   getRemainingtime();
-},1000)
+}, 1000);
 
+getRemainingtime();
